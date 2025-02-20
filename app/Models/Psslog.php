@@ -10,11 +10,14 @@ class Psslog extends Model
     protected $primaryKey = 'psslog_id';
     protected $table = 'psslog';
     public $timestamps = false;
-
     protected $stamp = null;
 
+    protected $casts = [
+        'entry_timestamp' => 'datetime',
+    ];
+
     // Attributes which may not be mass-assigned
-    public $guarded = ['psslog_id', 'created_at', 'updated_at'];
+    public $guarded = ['psslog_id',];
 
     // Default validation rules
     public static $rules = [
@@ -24,6 +27,11 @@ class Psslog extends Model
         'comments' => 'max:4000',
         'Area' => 'required',
     ];
+
+    public function getCreatedAtColumn()
+    {
+        return 'entry_timestamp';
+    }
 
     public function hasStamp() {
         if ($this->entry_type == 'STAMP'){

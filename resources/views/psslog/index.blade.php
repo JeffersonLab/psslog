@@ -4,7 +4,8 @@
     <div class="flex flex-wrap grid-cols-2 w-100">
 
     <main class="p-4 grow pt-20 col">
-    @include('psslog.accesses')
+    @include('psslog.accesses_table')
+    @include('psslog.entries')
     </main>
 
         <!-- Sidebar -->
