@@ -24,4 +24,8 @@ class PsslogController extends Controller
             ->with('entries', $entries)
             ->with('accesses', $accesses);
     }
+
+    public function item(Psslog $psslog, Request $request){
+        return view('psslog.item')->with('psslog', $psslog);
+    }
 }

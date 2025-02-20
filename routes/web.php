@@ -9,6 +9,10 @@ use Inertia\Inertia;
 Route::get('/entries',[PsslogController::class,'index'])
     ->name('psslog.index');
 
+Route::get('/entries/{psslog}',[PsslogController::class,'item'])
+    ->name('psslog.item');
+
+
 Route::redirect('/','/entries');
 
 

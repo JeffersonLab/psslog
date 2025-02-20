@@ -19,6 +19,16 @@ class Access extends Model
     public $timestamps = false;
 
     /**
+     * Maps key letters to Area names
+     * //TODO BSY vs. Hall B
+     */
+    private $map = array('I'=>'INJ','N'=>'NL','S'=>'SL','B'=>'BSY',
+        'A'=>'HALLA','B'=>'HALLB','C'=>'HALLC',
+        'D'=>'HALLD','T'=>'HDTAGGER', 'F'=>'LERF');
+
+
+
+    /**
      * The informational psslog entry that owns the Access
      */
     public function psslog() : BelongsTo{

@@ -10,4 +10,9 @@ class ControlledAccessStamp extends Model
     protected $primaryKey = 'psslog_id';
     protected $table = 'controlled_access_stamps';
     public $timestamps = false;
+
+    public function accesses(){
+        return $this->hasMany(Access::class, 'owning_stamp_id', 'psslog_id');
+    }
+
 }

@@ -16,10 +16,10 @@ class Stamp extends Model
         return $this->getAttribute('stamp_type');
     }
 
-    public function hasSampData() : bool {
+    public function hasData() : bool {
         switch($this->type()){
-            case 'CONTROLLED'   : return $this->hasControlledAccessStampData();
-            case 'RESTRICTED'   : return $this->hasRestrictedAccessStampData();
+            case 'CONTROLLED'   : return $this->hasControlledAccessData();
+            case 'RESTRICTED'   : return $this->hasRestrictedAccessData();
             case 'SWEEP'        : return $this->hasSweepStampData();
             case 'BEAM'         :
             case 'POWER'        :
@@ -27,38 +27,54 @@ class Stamp extends Model
         }
     }
 
-    public function stampData(): ?Model {
+    public function data(): ?Model {
         switch($this->type()){
-            case 'CONTROLLED'   : return $this->controlledAccessStampData();
-            case 'RESTRICTED'   : return $this->restrictedAccessStampData();
-            case 'SWEEP'        : return $this->sweepStampData();
+            case 'CONTROLLED'   : return $this->controlledAccessData();
+            case 'RESTRICTED'   : return $this->restrictedAccessData();
+            case 'SWEEP'        : return $this->sweepData();
             case 'BEAM'         :
             case 'POWER'        :
             default             : return null;
         }
     }
 
-    protected function controlledAccessStampData() {
+    protected function controlledAccessData() {
         return ControlledAccessStamp::where('psslog_id', $this->psslog_id)->first();
     }
 
-    protected function restrictedAccessStampData() {
+    protected function restrictedAccessData() {
         return RestrictedAccessStamp::where('psslog_id', $this->psslog_id)->first();
     }
 
-    protected function sweepStampData() {
+    protected function sweepData() {
         return SweepStamp::where('psslog_id', $this->psslog_id)->first();
     }
 
-    protected function hasControlledAccessStampData() {
+    protected function hasControlledAccessData() {
         return ControlledAccessStamp::where('psslog_id', $this->psslog_id)->exists();
     }
 
-    protected function hasRestrictedAccessStampData() {
+    protected function hasRestrictedAccessData() {
         return RestrictedAccessStamp::where('psslog_id', $this->psslog_id)->exists();
     }
 
-    protected function hasSweepStampData() {
+    protected function hasSweepData() {
         return SweepStamp::where('psslog_id', $this->psslog_id)->exists();
+    }
+
+    /**
+     * The Survey_required field used in several stamp types
+     * uses the characters F/P/N (Full, Partial, None)
+     * This function returns the string representation rather
+     * than the single char.
+     *
+     * @return string  single char 'Full', 'Partial', or 'None'
+     */
+    public static function expandFPN($val)
+    {
+        if (strtoupper($val) == 'F') {return 'Full';}
+        if (strtoupper($val) == 'P') {return 'Part';}
+        if (strtoupper($val) == 'N') {return 'None';}
+        return '';
     }
 }
