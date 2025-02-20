@@ -1,0 +1,54 @@
+# For more information: https://laravel.com/docs/sail
+services:
+    web:
+        image: 'jeffersonlab/cedlib:1.3'
+        ports:
+            - '80:80'
+            - '443:443'
+            - '5173:5173'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+        volumes:
+            - '.:/var/www/html'
+        depends_on:
+            - oracle
+            - mailhog
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        networks:
+            - sail
+    oracle:
+        image: 'gvenzl/oracle-xe:18'
+        hostname: oracle
+        ports:
+            - '${FORWARD_ORA_PORT:-1521}:1521'
+        environment:
+            ORACLE_PASSWORD: '${ORACLE_PASSWORD}'
+            APP_USER: '${APP_USER}'
+            APP_USER_PASSWORD: '${APP_USER_PASSWORD}'
+            DB_USERNAME: '${DB_USERNAME}'
+            DB_PASSWORD: '${DB_PASSWORD}'
+        volumes:
+            # Keeps persistent oracle data in project run directory
+            - './run/var/oracle/oradata:/opt/oracle/oradata'
+            #  *.sql, *.sql.gz, *.sql.zip or *.sh scripts to perform additional initialization of the database
+            #  that are only run the first time the database is initialized.
+            - './run/var/oracle/initdb:/container-entrypoint-initdb.d'
+            # *.sql, *.sql.gz, *.sql.zip or *.sh scripts to perform additional action after the database
+            # running has been started
+            - './run/var/oracle/startdb:/container-entrypoint-startdb.d'
+        networks:
+            - sail
+
+    mailhog:
+        image: 'mailhog/mailhog:latest'
+        ports:
+            - '${FORWARD_MAILHOG_PORT:-1025}:1025'
+            - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - sail
+networks:
+    sail:
+        driver: bridge
