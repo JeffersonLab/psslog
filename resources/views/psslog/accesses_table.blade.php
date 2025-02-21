@@ -1,7 +1,12 @@
-
+{{--
+Expected variables:
+       - $title:    Title for the heading slot
+       - $entries : Collection of Psslog objects
+       - $mode :    brief|expanded
+--}}
 
 <div id="open-accesses" class="shadow-md sm:rounded-lg mb-4">
-    <h2> Open Accesses </h2>
+    <h2 class="text-red-600 font-bold text-lg text-center mb-5"> {{$title}} </h2>
     <table class="min-w-full table-auto text-xs text-left  text-gray-700 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
@@ -23,6 +28,20 @@
             <th scope="col" class="px-0 py-1">
                 Key #
             </th>
+            @if($mode != 'brief')
+                <th scope="col" class="px-0 py-1">
+                    TLD
+                </th>
+                <th scope="col" class="px-0 py-1">
+                    Dosimeter
+                </th>
+                <th scope="col" class="px-0 py-1">
+                    ODH
+                </th>
+                <th scope="col" class="px-0 py-1">
+                    Time Out
+                </th>
+            @endif
             <th scope="col" class="px-0 py-1">
                 SSO Out
             </th>
@@ -40,6 +59,12 @@
             <td>{{$access->time_in->format('H:i')}}</td>
             <td>{{$access->sso_in}}</td>
             <td>{{$access->key_num}}</td>
+            @if($mode != 'brief')
+                <td>{{$access->tld}}</td>
+                <td>{{$access->dosimeter_number}}</td>
+                <td>{{$access->odh}}</td>
+                <td>{{isset($access->time_out) ? $access->time_out->format('H:i') : ''}}</td>
+            @endif
             <td>{{$access->sso_out}}</td>
             <td>{{$access->psslog->comments}}</td>
         </tr>

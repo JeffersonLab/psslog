@@ -1,5 +1,6 @@
-<div class="m-10 border-2 w-3/4 p-4">
-    <div class=title><h1>CONTROLLED ACCESS LOG</h1></div>
+<div>
+<div class="mt-10 mb-10 border-2 p-4 ">
+    <div class=title><h1 class="text-red-600 font-bold text-lg text-center mb-5">CONTROLLED ACCESS LOG</h1></div>
     <label>SSO</label>
     <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[15rem]">
         {{$psslog->entry_maker}}
@@ -17,7 +18,6 @@
     <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[15rem]">
         {{$psslog->area}}
     </span>
-    <br />
     @if ($psslog->area == 'LERF')
     <label class=hardleft>LASER BYPASS MODE</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
@@ -50,11 +50,10 @@
     <br />
     <br />
     <label class=comments>COMMENTS:</label>
-    <div class=commentsDiv>{{$psslog->comments}}</div>
-    </div>
+    <div class="font-bold mt-3">{{$psslog->comments}}</div>
 </div>
 
-<div class="m-10 border-2 w-3/4 p-4">
-    @include('psslog.accesses_table',['accesses' => $psslog->stamp()->data()->accesses])
-
+<div class="border-2 p-4">
+    @include('psslog.accesses_table',['title' => 'Related Accesses', 'accesses' => $psslog->stamp()->data()->accesses, 'mode' => 'expanded'])
+</div>
 </div>

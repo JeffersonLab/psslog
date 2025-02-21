@@ -25,12 +25,12 @@
         <tbody>
         @foreach($entries as $entry)
         <tr class="odd:bg-white  even:bg-yellow-100 border-b border-gray-200">
-            <td>{{$entry->psslog_id}}</td>
+            <td><a class="text-blue-600 hover:underline" href="{{route('psslog.item',[$entry->psslog_id])}}">{{$entry->psslog_id}}</a></td>
             <td>{{$entry->entry_timestamp}}</td>
             <td>{{$entry->area}}</td>
             <td>{{$entry->entry_type}}</td>
             <td>{{$entry->entry_maker}}</td>
-            <td>{{$entry->title}}</td>
+            <td><a class="text-blue-700 hover:underline" href="{{route('psslog.item',[$entry->psslog_id])}}">{{$entry->title}}</a></td>
         </tr>
         @endforeach
         </tbody>
