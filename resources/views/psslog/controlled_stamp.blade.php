@@ -3,7 +3,7 @@
     <div class=title><h1 class="text-red-600 font-bold text-lg text-center mb-5">CONTROLLED ACCESS LOG</h1></div>
     <label>SSO</label>
     <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[15rem]">
-        {{$psslog->entry_maker}}
+        {{$psslog->entryMaker->flastName()}}
     </span>
     <label>DATE</label>
     <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[10rem]">

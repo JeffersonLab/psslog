@@ -29,7 +29,7 @@
             <td>{{$entry->entry_timestamp}}</td>
             <td>{{$entry->area}}</td>
             <td>{{$entry->entry_type}}</td>
-            <td>{{$entry->entry_maker}}</td>
+            <td>{{$entry->entryMaker ? $entry->entryMaker->fLastname() : '_'}}</td>
             <td><a class="text-blue-700 hover:underline" href="{{route('psslog.item',[$entry->psslog_id])}}">{{$entry->title}}</a></td>
         </tr>
         @endforeach
