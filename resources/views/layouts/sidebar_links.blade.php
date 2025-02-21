@@ -25,31 +25,14 @@
     </h2>
     <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
         <ul class="list-disc text-blue-500 p-8 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+            @foreach(config('settings.sidebar_docs') as $title => $link)
             <li>
                 <a class="hover:underline"  target="_blank"
-                   href="https://jeffersonlab.sharepoint.com/sites/OpsDocs/Docs/PSS_controlled_access_proc.pdf">
-                    PSS Controlled Access Procedure
+                   href="{{$link}}">
+                    {{$title}}
                 </a>
             </li>
-            <li>
-                <a class="hover:underline" target="_blank"
-                   href="https://jeffersonlab.sharepoint.com/sites/OpsDocs/Docs/PSS_Elog_stamp_user_guide.pdf">
-                    PSS Elog Stamp User’s Guide
-                </a>
-            </li>
-            <li>
-                <a class="hover:underline"  target="_blank"
-                   href="https://jeffersonlab.sharepoint.com/sites/OpsDocs/Docs/PSS_state_change_proc.pdf">
-                    PSS State Change Procedure
-                </a>
-            </li>
-            <li>
-                <a class="hover:underline"  target="_blank"
-                   href="https://jeffersonlab.sharepoint.com/sites/OpsDocs/Docs/PSS_sweep_procedure.pdf">
-                    PSS Sweep Procedure
-                </a>
-            </li>
-        </ul>
+            @endforeach
     </div>
     <h2 id="accordion-collapse-heading-2">
         <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3" data-accordion-target="#accordion-collapse-body-2" aria-expanded="true" aria-controls="accordion-collapse-body-1">
@@ -65,18 +48,14 @@
     </h2>
     <div id="accordion-collapse-body-2" class="hidden">
         <ul class="list-disc text-blue-500 p-8 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-            <li>
-                <a class="hover:underline"  target="_blank"
-                   href="https://accweb9.acc.jlab.org/apps/psslog/sweepers">
-                    Qualified Sweepers Matrix
-                </a>
-            </li>
-            <li>
-                <a class="hover:underline"  target="_blank"
-                   href="https://logbooks.jlab.org/book/elog">
-                    OPS Electronic Logbook
-                </a>
-            </li>
+            @foreach(config('settings.sidebar_links') as $title => $link)
+                <li>
+                    <a class="hover:underline"  target="_blank"
+                       href="{{$link}}">
+                        {{$title}}
+                    </a>
+                </li>
+            @endforeach
         </ul>
     </div>
 

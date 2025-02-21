@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -55,7 +56,8 @@ class PsslogCollection extends Collection
     /**
      * Determine default sort order based on column(s) being sorted upon.
      *
-     * If the list of columns contains a date attribute, then the default order will
+     * If the list of columns contains a date attribute, then the default order
+     * will
      *
      * @return string asc|desc
      */
@@ -79,14 +81,14 @@ class PsslogCollection extends Collection
     public function groupByDay($preserveKeys = false)
     {
         return parent::groupBy(function ($item, $key) {
-            return $item->entry_timestamp->format('Y-m-d');
+            return $this->dayName($item->entry_timestamp);
         }, $preserveKeys);
     }
 
     public function groupByShift($preserveKeys)
     {
         return parent::groupBy(function ($item, $key) {
-            return $item->entry_timestamp->format('Y-m-d');
+            return $this->shiftName($item->entry_timestamp) . ' ' . $this->dayName($item->entry_timestamp);
         }, $preserveKeys);
     }
 
@@ -96,5 +98,14 @@ class PsslogCollection extends Collection
     public function sortByGroup()
     {
         ksort($this->items);
+    }
+
+    protected function shiftName(Carbon $date) {
+        $shiftsTable = config('settings.ops_shifts');
+        return $shiftsTable[$date->format('G')];
+    }
+
+    protected function dayName(Carbon $date) {
+        return $date->format('l (d-m-Y)');
     }
 }

@@ -4,7 +4,7 @@ Expected variables:
        - $entries : Collection of Psslog objects
        - $mode :    brief|expanded
 --}}
-
+@if ($entries->count() > 0)
 <div id="open-accesses" class="shadow-md sm:rounded-lg mb-4">
     <h2 class="text-red-600 font-bold text-lg text-center mb-5"> {{$title}} </h2>
     <table class="min-w-full table-auto text-xs text-left  text-gray-700 dark:text-gray-400">
@@ -72,3 +72,4 @@ Expected variables:
         </tbody>
     </table>
 </div>
+@endif
