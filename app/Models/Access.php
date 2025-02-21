@@ -16,7 +16,9 @@ class Access extends Model
         'time_out' => 'datetime',
     ];
 
+    protected $with = ['psslog'];
     public $timestamps = false;
+
 
     /**
      * Maps key letters to Area names

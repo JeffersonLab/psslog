@@ -9,6 +9,10 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+
+    protected $table = 'v_sso';
+    protected $primaryKey = 'staff_id';
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
@@ -44,5 +48,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function fLastName() {
+        $f = isset($this->firstname) ? substr($this->firstname,0,1) : '';
+        $last = isset($this->lastname) ? $this->lastname : '';
+        return "{$f}_{$last}";
     }
 }

@@ -19,6 +19,9 @@ class Psslog extends Model
     // Attributes which may not be mass-assigned
     public $guarded = ['psslog_id',];
 
+    // Always retrieve with the entrymaker
+    public $with = ['entryMaker'];
+
     // Default validation rules
     public static $rules = [
         'title' => 'required|max:255',
@@ -58,4 +61,7 @@ class Psslog extends Model
         return $this->stamp;
     }
 
+    public function entryMaker(){
+        return $this->hasOne('App\Models\User','staff_id','entry_maker');
+    }
 }
