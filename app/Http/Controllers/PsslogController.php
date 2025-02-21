@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 class PsslogController extends Controller
 {
     public function index(Request $request){
-        $data = Psslog::latest('entry_timestamp')->take(50)->get();
-        $collection = new PsslogCollection($data);
+        $data = Psslog::orderBy('entry_timestamp','desc')->paginate(50);
+        $collection = new PsslogCollection($data->all());
         if ($request->has('groupBy') && strtoupper($request->get('groupBy')) != 'NONE') {
             $entries = $collection->groupBy($request->get('groupBy'));
         }else{
@@ -22,7 +22,8 @@ class PsslogController extends Controller
 
         return view('psslog.index')
             ->with('entries', $entries)
-            ->with('accesses', $accesses);
+            ->with('accesses', $accesses)
+            ->with('paginatorLinks', $data->withQueryString()->onEachSide(3)->links());
     }
 
     public function item(Psslog $psslog, Request $request){

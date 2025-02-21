@@ -8,6 +8,7 @@
             @include('psslog.accesses_table',['title' => 'Open Accesses', 'entries' => $entries, 'mode' => 'brief'])
             <!-- The listing of psslog entry titles -->
             @include('psslog.entries')
+            {!! $paginatorLinks !!}
         </main>
 
         <!-- Sidebar -->

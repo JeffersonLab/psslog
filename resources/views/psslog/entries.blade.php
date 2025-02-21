@@ -8,3 +8,4 @@
     {{--The case where we've got a flat list of entries--}}
     @include('psslog.entries_table',['entries' => $entries,'showDate' => true])
 @endif
+
