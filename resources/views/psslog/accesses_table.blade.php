@@ -5,9 +5,9 @@ Expected variables:
        - $mode :    brief|expanded
 --}}
 @if ($entries->count() > 0)
-<div id="open-accesses" class="shadow-md sm:rounded-lg mb-4">
+<div id="open-accesses" class="shadow-md sm:rounded-lg p-2 mb-4 border-2">
     <h2 class="text-red-600 font-bold text-lg text-center mb-5"> {{$title}} </h2>
-    <table class="min-w-full table-auto text-xs text-left  text-gray-700 dark:text-gray-400">
+    <table class="min-w-full table-auto font-semibold text-sm text-left  text-gray-700 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-0 py-1">
