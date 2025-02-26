@@ -64,4 +64,12 @@ class Psslog extends Model
     public function entryMaker(){
         return $this->hasOne('App\Models\User','staff_id','entry_maker');
     }
+
+    public function attachments(){
+        return $this->hasMany('App\Models\Attachment','psslog_id','psslog_id');
+    }
+
+    public function hasAttachments(){
+        return $this->attachments->isNotEmpty();
+    }
 }
