@@ -29,7 +29,7 @@
         </thead>
         <tbody>
         @foreach($entries as $entry)
-        <tr class="odd:bg-white font-semibold text-base/8 even:bg-yellow-100 border-b border-gray-200">
+        <tr class="odd:bg-white text-base even:bg-yellow-100 border-b border-gray-200">
             <td><a class="text-blue-700 hover:underline" href="{{route('psslog.item',[$entry->psslog_id])}}">{{$entry->psslog_id}}</a></td>
             @if($showDate)
             <td>{{$entry->entry_timestamp->format('m-d-Y')}}</td>

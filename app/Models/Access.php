@@ -43,16 +43,14 @@ class Access extends Model
      * The SSO who signed the user in
      */
     public function entrySso() {
-        // TODO convert to return a User object
-        return $this->sso_in;
+        return $this->hasOne('App\Models\User','staff_id','sso_in');
     }
 
     /**
      * The SSO who signed the user out
      */
     public function exitSso() {
-        // TODO convert to return a User object
-        return $this->sso_out;
+        return $this->hasOne('App\Models\User','staff_id','sso_out');
     }
 
 }

@@ -5,7 +5,9 @@
 
         <main class="p-4 grow pt-20 col">
             <!-- The table of open accesses -->
-            @include('psslog.accesses_table',['title' => 'Open Accesses', 'entries' => $entries, 'mode' => 'brief'])
+            @if ($accesses->count() > 0)
+                @include('psslog.accesses_table',['title' => 'Open Accesses', 'entries' => $accesses, 'mode' => 'brief'])
+            @endif
             <!-- The listing of psslog entry titles -->
             @include('psslog.entries')
             {!! $paginatorLinks !!}

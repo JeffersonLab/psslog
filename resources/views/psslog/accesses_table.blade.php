@@ -57,7 +57,7 @@ Expected variables:
             <td>{{$access->psslog->area}}</td>
             <td>{{$access->time_in->format('m-d-y')}}</td>
             <td>{{$access->time_in->format('H:i')}}</td>
-            <td>{{$access->sso_in}}</td>
+            <td>{{$access->entrySso ? $access->entrySso->username : ''}}</td>
             <td>{{$access->key_num}}</td>
             @if($mode != 'brief')
                 <td>{{$access->tld}}</td>
@@ -65,7 +65,7 @@ Expected variables:
                 <td>{{$access->odh}}</td>
                 <td>{{isset($access->time_out) ? $access->time_out->format('H:i') : ''}}</td>
             @endif
-            <td>{{$access->sso_out}}</td>
+            <td>{{$access->exitSso ? $access->exitSso->username : ''}}</td>
             <td>{{$access->psslog->comments}}</td>
         </tr>
         @endforeach
