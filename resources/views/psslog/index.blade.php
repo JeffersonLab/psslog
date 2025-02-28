@@ -1,9 +1,9 @@
 @extends('layouts.default')
 
 @section('main')
-    <div class="flex flex-wrap grid-cols-2 w-100">
+    <div class="flex flex-wrap w-100">
 
-        <main class="p-4 grow pt-20 col">
+        <main class="p-4 pt-10 w-full sm:w-2/3 md:w-3/4">
             <!-- The table of open accesses -->
             @if ($accesses->count() > 0)
                 @include('psslog.accesses_table',['title' => 'Open Accesses', 'entries' => $accesses, 'mode' => 'brief'])
@@ -15,7 +15,7 @@
 
         <!-- Sidebar -->
         <aside
-            class="col right-0 w-80 pt-14  bg-white dark:bg-gray-800 dark:border-gray-700"
+            class="right-0 w-80 pt-14  bg-white dark:bg-gray-800 dark:border-gray-700"
             aria-label="Sidenav"
             id="drawer-navigation"
         >
