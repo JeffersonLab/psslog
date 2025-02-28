@@ -22,6 +22,7 @@
         >
             <div
                 class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
+                @include('layouts.prev_next')
                 @include('layouts.sidebar_links')
             </div>
 

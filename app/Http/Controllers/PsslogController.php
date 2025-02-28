@@ -32,6 +32,38 @@ class PsslogController extends Controller
             ->with('paginatorLinks', $data->withQueryString()->onEachSide(3)->links());
     }
 
+
+    /**
+     * A single psslog entry
+     */
+    public function previous(Psslog $psslog, Request $request){
+        $previous = Psslog::where('entry_timestamp','<=',$psslog->entry_timestamp)
+            ->where('psslog_id','<', $psslog->psslog_id)
+            ->orderBy('entry_timestamp','desc')
+            ->take(1)
+            ->first();
+        return redirect()->route('psslog.item',[$previous->psslog_id]);
+    }
+
+
+    /**
+     * A single psslog entry
+     */
+    public function next(Psslog $psslog, Request $request){
+        $next = Psslog::where('entry_timestamp','>=',$psslog->entry_timestamp)
+            ->where('psslog_id','>', $psslog->psslog_id)
+            ->orderBy('entry_timestamp','asc')
+            ->take(1)
+            ->first();
+        if ($next) {
+            return redirect()->route('psslog.item',[$next->psslog_id]);
+        }
+        // No more next entries so go to index
+        return redirect()->route('psslog.index');
+
+    }
+
+
     /**
      * A single psslog entry
      */

@@ -5,7 +5,7 @@
           to decide where and how to make other non-image attachments accesssible.--}}
     @foreach($psslog->imageAttachments() as $attachment)
         <div>
-            <img src="{{route('psslog.attachment',[$psslog->psslog_id, $attachment->attachment_id])}}"
+            <img src="{{route('psslog.attachment',[$psslog->psslog_id, $attachment->attachment_id])}}">
         </div>
     @endforeach
 @endif
