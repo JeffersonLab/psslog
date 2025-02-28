@@ -18,7 +18,7 @@
 
         <!-- Sidebar -->
         <aside
-            class="col-span-3 right-0 min-w-80 pt-10  bg-white dark:bg-gray-800 dark:border-gray-700"
+            class="right-0 min-w-80 pt-10  bg-white dark:bg-gray-800 dark:border-gray-700"
         >
             <div
                 class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
