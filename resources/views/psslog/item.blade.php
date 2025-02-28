@@ -6,13 +6,13 @@
             @if ($psslog->entry_type == 'STAMP')
                 @if ($psslog->stampType() == 'CONTROLLED')
                     @include('psslog.controlled_stamp')
+                @elseif ($psslog->stampType() == 'RESTRICTED')
+                    @include('psslog.controlled_stamp')
+                @else
+                    @include('psslog.stamp')
                 @endif
-            @elseif($psslog->entry_type == 'INFO')
-                @include('psslog.info')
             @else
-                <div>
-                    Not a Stamp!
-                </div>
+                @include('psslog.info')
             @endif
         </main>
 

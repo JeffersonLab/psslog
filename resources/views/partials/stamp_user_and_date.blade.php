@@ -1,6 +1,6 @@
 <label>SSO</label>
 <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[15rem]">
-        {{$psslog->entryMaker->flastName()}}
+        {{$psslog->entryMaker ? $psslog->entryMaker->flastName() : '_'}}
     </span>
 <label>DATE</label>
 <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[10rem]">
