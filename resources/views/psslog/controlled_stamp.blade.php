@@ -56,4 +56,7 @@
 <div class="border-2 p-4">
     @include('psslog.accesses_table',['title' => 'Related Accesses', 'accesses' => $psslog->stamp()->data()->accesses, 'mode' => 'expanded'])
 </div>
+
+ @include('partials.stamp_attachments')
+
 </div>

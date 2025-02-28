@@ -40,15 +40,15 @@ class PsslogController extends Controller
     }
 
     /**
-     * Return a psslog entry attachment as raw data
+     * Print a psslog entry attachment.
      */
     public function attachment(Psslog $psslog, Attachment $attachment, Request $request){
         header("Content-disposition: filename=".$attachment->filename_orig);
         header("Content-type: ".$attachment->mime_type);
         header("Content-length: ".$attachment->data_size);
         print($attachment->data);
-
     }
 
 
 }
+

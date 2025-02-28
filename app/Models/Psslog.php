@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Psslog extends Model
 {
@@ -36,14 +39,14 @@ class Psslog extends Model
         return 'entry_timestamp';
     }
 
-    public function hasStamp() {
+    public function hasStamp(): bool {
         if ($this->entry_type == 'STAMP'){
             return Stamp::where('psslog_id',$this->psslog_id)->exists();
         }
         return false;
     }
 
-    public function stampType() {
+    public function stampType() : ?string {
         if ($this->entry_type == 'STAMP'){
             return Stamp::where('psslog_id',$this->psslog_id)->pluck('stamp_type')->first();
         }
@@ -61,15 +64,25 @@ class Psslog extends Model
         return $this->stamp;
     }
 
-    public function entryMaker(){
+    public function entryMaker() : HasOne {
         return $this->hasOne('App\Models\User','staff_id','entry_maker');
     }
 
-    public function attachments(){
+    public function attachments() : HasMany {
         return $this->hasMany('App\Models\Attachment','psslog_id','psslog_id');
     }
 
-    public function hasAttachments(){
+    public function imageAttachments() : Collection {
+        return $this->attachments->where(function($item) {
+           return stristr($item->mime_type, 'image') !== false;
+        });
+    }
+
+    public function hasImageAttachments() : bool {
+        return $this->imageAttachments()->isNotEmpty();
+    }
+
+    public function hasAttachments() : bool{
         return $this->attachments->isNotEmpty();
     }
 }
