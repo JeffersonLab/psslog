@@ -12,7 +12,8 @@ class ControlledAccessStamp extends Model
     public $timestamps = false;
 
     public function accesses(){
-        return $this->hasMany(Access::class, 'owning_stamp_id', 'psslog_id');
+        return $this->hasMany(Access::class, 'owning_stamp_id', 'psslog_id')
+            ->orderBy('time_in', 'desc');
     }
 
 }
