@@ -9,7 +9,7 @@
         </span>
         <label>DOOR SIGNS CHECKED</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
-          @if ($psslog->stamp()->data()->beam_permit_signs)
+          @if ($psslog->stamp()->data() && $psslog->stamp()->data()->beam_permit_signs)
                 {{-- db has values of Y,P,I, and null      --}}
                 {{$psslog->stamp()->data()->beam_permit_signs}}
             @else
@@ -21,7 +21,7 @@
 
         <label>BEAM AUTHORIZATION </label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
-          @if ($psslog->stamp()->data()->beam_auth)
+          @if ($psslog->stamp()->data() && $psslog->stamp()->data()->beam_auth)
                 {{$psslog->stamp()->data()->beam_auth ? 'Y' : 'N'}}
             @else
                 &nbsp;&nbsp;
