@@ -1,28 +1,26 @@
 <div>
     <div class="mt-10 mb-10 border-2 p-4 ">
-        <div class=title><h1 class="text-red-600 font-bold text-lg text-center mb-5">CONTROLLED ACCESS LOG</h1></div>
-        <label>SSO</label>
-        <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[15rem]">
-        {{$psslog->entryMaker->flastName()}}
-    </span>
-        <label>DATE</label>
-        <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[10rem]">
-        {{$psslog->entry_timestamp->format('m/d/Y')}}
-    </span>
-        <label>TIME</label>
-        <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
-        {{$psslog->entry_timestamp->format('H:i')}}
-    </span>
+        <div class=title>
+            <h1 class="text-red-600 font-bold text-lg text-center mb-5">
+                CONTROLLED ACCESS LOG
+            </h1>
+        </div>
+        @include('partials.stamp_user_and_date')
         <br/>
         <label class=hardleft>AREA ACCESSED</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[15rem]">
         {{$psslog->area}}
     </span>
         @if ($psslog->area == 'LERF')
+            <br/>
             <label class=hardleft>LASER BYPASS MODE</label>
             <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
-            {{$psslog->stamp()->data()->laser_bypass_mode ? 'Y' : 'N'}}
-        </span>
+            @if ($psslog->stamp()->data()->laser_bypass_mode)
+                    {{$psslog->stamp()->data()->laser_bypass_mode ? 'Y' : 'N'}}
+            @else
+                    &nbsp;&nbsp;
+            @endif
+            </span>
         @endif
         <br/>
         <label class=hardleft>REASON FOR ACCESS</label>
@@ -51,14 +49,14 @@
         <br/>
         <label class=comments>COMMENTS:</label>
         <div class="font-bold mt-2 whitespace-pre-line">
-                {{$psslog->comments}}
+            {{$psslog->comments}}
         </div>
     </div>
 
     @if ($psslog->stamp()->data()->accesses->isNotEmpty())
-    <div class="border-2 p-4">
-        @include('psslog.accesses_table',['title' => 'Related Accesses', 'accesses' => $psslog->stamp()->data()->accesses, 'mode' => 'expanded'])
-    </div>
+        <div class="border-2 p-4">
+            @include('psslog.accesses_table',['title' => 'Related Accesses', 'accesses' => $psslog->stamp()->data()->accesses, 'mode' => 'expanded'])
+        </div>
     @endif
 
     @include('partials.stamp_attachments')
