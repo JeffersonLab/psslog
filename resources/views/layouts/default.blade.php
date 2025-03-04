@@ -12,7 +12,9 @@
             <!-- Title bar -->
             <div class="flex justify-start items-center ">
                 <a href="{{route('psslog.index')}}" class="flex items-center justify-between ml-4 mr-4 text-xl text-white">
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">PSS Logbook</span>
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                        Jefferson Lab PSS eStamp Logbook
+                    </span>
                 </a>
 
             </div>

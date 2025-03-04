@@ -3,7 +3,7 @@
 @section('main')
     <div class="flex flex-wrap w-100">
 
-        <main class="p-4 pt-10 w-full sm:w-2/3 md:w-3/4">
+        <main class="p-4 mt-14 w-full sm:w-2/3 md:w-3/4">
             <!-- The table of open accesses -->
             @if ($accesses->count() > 0)
                 @include('psslog.accesses_table',['title' => 'Open Accesses', 'entries' => $accesses, 'mode' => 'brief'])

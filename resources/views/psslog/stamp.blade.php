@@ -1,6 +1,6 @@
 <div>
     <div class="mt-10 mb-10 border-2 p-4 leading-8">
-        <div class=title><h1 class="text-red-600 font-bold text-lg text-center mb-5">{{$psslog->stampType()}} LOG</h1></div>
+        <div class=title><h1 class="text-red-600 font-bold text-lg text-center mb-5">{{$psslog->stampType()}} PERMIT LOG</h1></div>
         @include('partials.stamp_user_and_date')
         <br />
         <label>AREA</label>

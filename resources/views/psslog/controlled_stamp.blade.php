@@ -23,8 +23,8 @@
             <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
             {{$psslog->stamp()->data()->laser_bypass_mode ? 'Y' : 'N'}}
         </span>
-            <br/>
         @endif
+        <br/>
         <label class=hardleft>REASON FOR ACCESS</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[15rem]">
         {{$psslog->stamp()->data()->reason}}
@@ -32,7 +32,7 @@
         <br/>
         <label class=hardleft>SURVEY_REQUIRED</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
-        {{\App\Models\Stamp::formatFPMexpandFPN($psslog->stamp()->data()->survey_required)}}
+        {{\App\Models\Stamp::formatFPN($psslog->stamp()->data()->survey_required)}}
     </span>
         <label>SSO REVIEWED SURVEY LOG</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
@@ -50,12 +50,16 @@
         <br/>
         <br/>
         <label class=comments>COMMENTS:</label>
-        <div class="font-bold mt-3">{{$psslog->comments}}</div>
+        <div class="font-bold mt-2 whitespace-pre-line">
+                {{$psslog->comments}}
+        </div>
     </div>
 
+    @if ($psslog->stamp()->data()->accesses->isNotEmpty())
     <div class="border-2 p-4">
         @include('psslog.accesses_table',['title' => 'Related Accesses', 'accesses' => $psslog->stamp()->data()->accesses, 'mode' => 'expanded'])
     </div>
+    @endif
 
     @include('partials.stamp_attachments')
 
