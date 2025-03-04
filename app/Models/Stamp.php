@@ -21,7 +21,7 @@ class Stamp extends Model
             case 'CONTROLLED'   : return $this->hasControlledAccessData();
             case 'RESTRICTED'   : return $this->hasRestrictedAccessData();
             case 'SWEEP'        : return $this->hasSweepStampData();
-            case 'BEAM'         :
+            case 'BEAM'         : return $this->hasBeamPermitData();
             case 'POWER'        :
             default             :    return false;
         }
@@ -32,7 +32,7 @@ class Stamp extends Model
             case 'CONTROLLED'   : return $this->controlledAccessData();
             case 'RESTRICTED'   : return $this->restrictedAccessData();
             case 'SWEEP'        : return $this->sweepData();
-            case 'BEAM'         :
+            case 'BEAM'         : return $this->BeamPermitData();
             case 'POWER'        :
             default             : return null;
         }
@@ -50,6 +50,10 @@ class Stamp extends Model
         return SweepStamp::where('psslog_id', $this->psslog_id)->first();
     }
 
+    protected function BeamPermitData() {
+        return BeamPermitStamp::where('psslog_id', $this->psslog_id)->first();
+    }
+
     protected function hasControlledAccessData() {
         return ControlledAccessStamp::where('psslog_id', $this->psslog_id)->exists();
     }
@@ -62,6 +66,10 @@ class Stamp extends Model
         return SweepStamp::where('psslog_id', $this->psslog_id)->exists();
     }
 
+    protected function hasBeamPermitData() {
+        return BeamPermitStamp::where('psslog_id', $this->psslog_id)->exists();
+    }
+
     /**
      * The Survey_required field used in several stamp types
      * uses the characters F/P/N (Full, Partial, None)
@@ -70,11 +78,13 @@ class Stamp extends Model
      *
      * @return string  single char 'Full', 'Partial', or 'None'
      */
-    public static function expandFPN($val)
+    public static function formatFPN($val)
     {
-        if (strtoupper($val) == 'F') {return 'Full';}
-        if (strtoupper($val) == 'P') {return 'Part';}
-        if (strtoupper($val) == 'N') {return 'None';}
-        return '';
+        switch(strtoupper($val)){
+            case 'F' :  return 'Full';
+            case 'P' :  return 'Part';
+            case 'N' :
+            default  :    return 'None';
+        }
     }
 }
