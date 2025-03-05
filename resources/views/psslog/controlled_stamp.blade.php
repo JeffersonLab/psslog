@@ -9,8 +9,8 @@
         <br/>
         <label class=hardleft>AREA ACCESSED</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[15rem]">
-        {{$psslog->area}}
-    </span>
+            {{$psslog->area}}
+        </span>
         @if ($psslog->area == 'LERF')
             <br/>
             <label class=hardleft>LASER BYPASS MODE</label>
@@ -25,13 +25,13 @@
         <br/>
         <label class=hardleft>REASON FOR ACCESS</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[15rem]">
-        {{$psslog->stamp()->data()->reason}}
-    </span>
+            {{$psslog->stamp()->data()->reason}}
+        </span>
         <br/>
         <label class=hardleft>SURVEY_REQUIRED</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
-        {{\App\Models\Stamp::formatFPN($psslog->stamp()->data()->survey_required)}}
-    </span>
+            {{\App\Models\Stamp::formatFPN($psslog->stamp()->data()->survey_required)}}
+        </span>
         <label>SSO REVIEWED SURVEY LOG</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
         {{$psslog->stamp()->data()->survey_reviewed ? 'Y' : 'N'}}
@@ -43,7 +43,7 @@
         </span>
         <label>FULL SURVEY COMPLETED @:</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
-
+            {{$psslog->stamp()->data()->survey_completed->format('H:i')}}
         </span>
         <br/>
         <br/>

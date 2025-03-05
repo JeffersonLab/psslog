@@ -7,7 +7,7 @@
                 @if ($psslog->stampType() == 'CONTROLLED')
                     @include('psslog.controlled_stamp')
                 @elseif ($psslog->stampType() == 'RESTRICTED')
-                    @include('psslog.controlled_stamp')
+                    @include('psslog.restricted_stamp')
                 @elseif ($psslog->stampType() == 'SWEEP')
                     @include('psslog.sweep_stamp')
                 @else

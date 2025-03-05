@@ -10,4 +10,18 @@ class RestrictedAccessStamp extends Model
     protected $primaryKey = 'psslog_id';
     protected $table = 'restricted_access_stamps';
     public $timestamps = false;
+
+    protected $casts = [
+        'announce15' => 'datetime',
+        'announce05' => 'datetime',
+        'survey_completed' => 'datetime',
+    ];
+
+    // Default validation rules
+    public static $rules = [
+        'survey_required' => 'nullable | in:F,P',
+        'announce15' => 'date',
+        'announce05' => 'date',
+        'survey_completed' => 'date',
+    ];
 }
