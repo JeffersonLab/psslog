@@ -5,11 +5,15 @@
 
         <main class="p-4 mt-14 w-full sm:w-2/3 md:w-3/4">
             <!-- The table of open accesses -->
+            <div id="open-accesses-container" hx-get="{{route('accesses.open')}}" hx-trigger="every 1m" hx-swap="innerHTML">
             @if ($accesses->count() > 0)
                 @include('psslog.accesses_table',['title' => 'Open Accesses', 'entries' => $accesses, 'mode' => 'brief'])
             @endif
+            </div>
             <!-- The listing of psslog entry titles -->
-            @include('psslog.entries')
+            <div id="psslog-listing-container" hx-get="{{route('psslog.list')}}" hx-trigger="every 5s" hx-swap="innerHTML">
+                @include('psslog.entries')
+            </div>
             {!! $paginatorLinks !!}
         </main>
 

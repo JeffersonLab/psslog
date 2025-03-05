@@ -6,35 +6,57 @@ use App\Models\Access;
 use App\Models\Attachment;
 use App\Models\Psslog;
 use App\Models\PsslogCollection;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class PsslogController extends Controller
 {
 
     /**
      * An index page listing recent or requested psslog entries as well
-     * as any open accesses underway.
+     * as any open accesses that are underway.
      */
     public function index(Request $request){
-        $data = Psslog::orderBy('entry_timestamp','desc')->paginate(50);
+
+        $paginatedData = $this->getEntries($request)->paginate(50);
+
+        return view('psslog.index')
+            ->with('entries', $this->getEntriesCollection($paginatedData, $request))
+            ->with('accesses', $this->getAccesses($request))
+            ->with('paginatorLinks', $paginatedData->withQueryString()->onEachSide(3)->links());
+    }
+
+    /**
+     * Show a table of psslog entries
+     */
+    public function list(Request $request){
+        $paginatedData = $this->getEntries($request)->paginate(50);
+        return view('psslog.entries')
+            ->with('entries', $this->getEntriesCollection($paginatedData, $request));
+    }
+
+    protected function getEntries(Request $request) {
+        return Psslog::orderBy('entry_timestamp','desc');
+    }
+
+    protected function getEntriesCollection(Paginator $data, Request $request): Collection {
+
         $collection = new PsslogCollection($data->all());
         if ($request->has('groupBy') && strtoupper($request->get('groupBy')) != 'NONE') {
             $entries = $collection->groupBy($request->get('groupBy'));
         }else{
             $entries = $collection;
         }
-
-        $accesses = Access::where('time_out',null)->orderBy('time_in','desc')->get();
-
-        return view('psslog.index')
-            ->with('entries', $entries)
-            ->with('accesses', $accesses)
-            ->with('paginatorLinks', $data->withQueryString()->onEachSide(3)->links());
+        return $entries;
     }
 
+    protected function getAccesses(Request $request) : Collection {
+        return Access::where('time_out',null)->orderBy('time_in','desc')->get();
+    }
 
     /**
-     * A single psslog entry
+     * Show the previous entry before the given psslog
      */
     public function previous(Psslog $psslog, Request $request){
         $previous = Psslog::where('entry_timestamp','<=',$psslog->entry_timestamp)
@@ -42,12 +64,16 @@ class PsslogController extends Controller
             ->orderBy('entry_timestamp','desc')
             ->take(1)
             ->first();
-        return redirect()->route('psslog.item',[$previous->psslog_id]);
+        if ($previous){
+            return redirect()->route('psslog.item',[$previous->psslog_id]);
+        }
+        // No prior entries so go to index
+        return redirect()->route('psslog.index');
     }
 
 
     /**
-     * A single psslog entry
+     * Show the next entry after the given psslog
      */
     public function next(Psslog $psslog, Request $request){
         $next = Psslog::where('entry_timestamp','>=',$psslog->entry_timestamp)
@@ -63,16 +89,28 @@ class PsslogController extends Controller
 
     }
 
+    /**
+     * Get a table of currently open accesses
+     */
+    public function openAccesses(){
+        $accesses = Access::where('time_out',null)->orderBy('time_in','desc')->get();
+        return view('psslog.accesses_table')
+            ->with('accesses', $accesses)
+            ->with('title', 'Open Accesses')
+            ->with('mode', 'brief');
+    }
 
     /**
-     * A single psslog entry
+     * Display a single psslog entry
      */
     public function item(Psslog $psslog, Request $request){
         return view('psslog.item')->with('psslog', $psslog);
     }
 
+
     /**
      * Print a psslog entry attachment.
+     *
      */
     public function attachment(Psslog $psslog, Attachment $attachment, Request $request){
         header("Content-disposition: filename=".$attachment->filename_orig);

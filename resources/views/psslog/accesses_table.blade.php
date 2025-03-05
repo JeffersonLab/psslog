@@ -70,6 +70,12 @@ Expected variables:
         </tr>
         @endforeach
         </tbody>
+        <tfoot>
+        <tr>
+           <td class="text-right text-xs font-weight-lighter pt-2" colspan="100%">Updated: {{date('D, M d @H:i')}}</td>
+        </tr>
+
+        </tfoot>
     </table>
 </div>
 @endif
