@@ -2,9 +2,7 @@
 <div class="flex flex-col w-78 mt-5 bg-gray-100 break-words bg-clip-border border-[1px] border-[solid] rounded">
     <h2>
         <button type="button"
-                class="flex items-center justify-between w-full p-5 font-medium  text-gray-500 border border-b-0 border-gray-200 rounded focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                data-accordion-target="#accordion-collapse-body-1" aria-expanded="true"
-                aria-controls="accordion-collapse-body-1">
+                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded focus:ring-4 focus:ring-gray-200  hover:bg-gray-100 gap-3">
             <svg
                 class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                 fill="currentColor"
@@ -24,7 +22,7 @@
         </button>
 
     </h2>
-    <ul class="list-disc text-blue-500 p-8 bg-white border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+    <ul class="list-disc text-sm  text-blue-500 p-8 bg-white border border-b-0 border-gray-200 ">
         @foreach(config('settings.sidebar_docs') as $title => $link)
             <li>
                 <a class="hover:underline" target="_blank"
@@ -39,9 +37,7 @@
 <div class="flex flex-col w-78 mt-5 bg-gray-100 break-words bg-clip-border border-[1px] border-[solid] rounded">
     <h2>
         <button type="button"
-                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                data-accordion-target="#accordion-collapse-body-1" aria-expanded="true"
-                aria-controls="accordion-collapse-body-1">
+                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded focus:ring-4 focus:ring-gray-200  hover:bg-gray-100 gap-3">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                  fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -53,7 +49,7 @@
         </button>
 
     </h2>
-    <ul class="list-disc text-blue-500 p-8 bg-white border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+    <ul class="list-disc text-sm text-blue-500 p-8 bg-white border border-b-0 border-gray-200">
         @foreach(config('settings.sidebar_links') as $title => $link)
             <li>
                 <a class="hover:underline" target="_blank"
