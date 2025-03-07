@@ -11,7 +11,8 @@
             @endif
             </div>
             <!-- The listing of psslog entry titles -->
-            <div id="psslog-listing-container" hx-get="{{route('psslog.list')}}" hx-trigger="every 1m" hx-swap="innerHTML">
+
+            <div id="psslog-listing-container" hx-get="{{request()->fullUrl()}}" hx-trigger="every 1m" hx-swap="innerHTML">
                 @include('psslog.entries')
             </div>
             {!! $paginatorLinks !!}
