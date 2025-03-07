@@ -16,7 +16,6 @@
     "require": {
         "php": "^8.2",
         "ext-json": "*",
-        "inertiajs/inertia-laravel": "^2.0",
         "jlab/auth": "^10.1",
         "laravel/framework": "^11.41",
         "laravel/sanctum": "^4.0",
