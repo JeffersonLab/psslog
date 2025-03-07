@@ -17,9 +17,9 @@
             <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
             @if ($psslog->stamp()->data()->laser_bypass_mode)
                     {{$psslog->stamp()->data()->laser_bypass_mode ? 'Y' : 'N'}}
-                @else
+            @else
                     &nbsp;&nbsp;
-                @endif
+            @endif
             </span>
         @endif
         <br/>
@@ -43,7 +43,7 @@
         </span>
         <label>FULL SURVEY COMPLETED @:</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
-            @if (isset($psslog->stamp()->data()->survey_completed))
+            @if ($psslog->stamp()->data()->survey_completed)
                 {{$psslog->stamp()->data()->survey_completed->format('H:i')}}
             @else
                 &nbsp;&nbsp;
