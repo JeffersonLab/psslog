@@ -19,7 +19,7 @@ class PsslogController extends Controller
      */
     public function index(Request $request){
 
-        $paginatedData = $this->getEntries($request)->paginate(50);
+        $paginatedData = $this->indexQuery($request)->paginate(50);
 
         return view('psslog.index')
             ->with('entries', $this->getEntriesCollection($paginatedData, $request))
@@ -31,20 +31,25 @@ class PsslogController extends Controller
      * Show a table of psslog entries
      */
     public function list(Request $request){
-        $paginatedData = $this->getEntries($request)->paginate(50);
+        $paginatedData = $this->indexQuery($request)->paginate(50);
         return view('psslog.entries')
             ->with('entries', $this->getEntriesCollection($paginatedData, $request));
     }
 
-    protected function getEntries(Request $request) {
-        return Psslog::orderBy('entry_timestamp','desc');
+    protected function indexQuery(Request $request) {
+        $query = Psslog::query();
+        if (config('settings.display.entry_types')){
+            $query->whereIn('entry_type', config('settings.display.entry_types'));
+        }
+        $query->orderBy('entry_timestamp','desc');
+        return $query;
     }
 
-    protected function getEntriesCollection(Paginator $data, Request $request): Collection {
 
+    protected function getEntriesCollection(Paginator $data, Request $request): Collection {
         $collection = new PsslogCollection($data->all());
-        if ($request->has('groupBy') && strtoupper($request->get('groupBy')) != 'NONE') {
-            $entries = $collection->groupBy($request->get('groupBy'));
+        if ( (config('settings.display.group_by') && strtoupper(config('settings.display.group_by')) != 'NONE')) {
+            $entries = $collection->groupBy(config('settings.display.group_by'));
         }else{
             $entries = $collection;
         }
