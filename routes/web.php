@@ -1,15 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PsslogController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/entries',[PsslogController::class,'index'])
     ->name('psslog.index');
-
-
 
 Route::get('/entries/list',[PsslogController::class,'list'])
     ->name('psslog.list');
