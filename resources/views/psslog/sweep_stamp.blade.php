@@ -1,6 +1,10 @@
 <div>
     <div class="mt-10 mb-10 border-2 p-4 leading-8">
-        <div class=title><h1 class="text-red-600 font-bold text-lg text-center mb-5">{{$psslog->stampType()}} LOG</h1></div>
+
+        <x-stamps.title>
+            {{$psslog->psslog_id}} - {{$psslog->stampType()}} LOG
+        </x-stamps.title>
+
         @include('partials.stamp_user_and_date')
         <br />
         <label>SURVEY REQUIRED</label>

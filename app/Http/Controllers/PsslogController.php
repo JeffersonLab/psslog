@@ -59,11 +59,7 @@ class PsslogController extends Controller
      * Show the previous entry before the given psslog
      */
     public function previous(Psslog $psslog, Request $request){
-        $previous = Psslog::where('entry_timestamp','<=',$psslog->entry_timestamp)
-            ->where('psslog_id','<', $psslog->psslog_id)
-            ->orderBy('entry_timestamp','desc')
-            ->take(1)
-            ->first();
+        $previous = $this->previousEntry($psslog, $request);
         if ($previous){
             return redirect()->route('psslog.item',[$previous->psslog_id]);
         }
@@ -71,16 +67,47 @@ class PsslogController extends Controller
         return redirect()->route('psslog.index');
     }
 
+    /**
+     * Get the psslog before the given psslog
+     */
+    protected function previousEntry(Psslog $psslog, Request $request) {
+        return Psslog::where('entry_timestamp','<=',$psslog->entry_timestamp)
+            ->where('psslog_id','<', $psslog->psslog_id)
+            ->orderBy('entry_timestamp','desc')
+            ->take(1)
+            ->first();
+    }
+
+    /**
+     * Get the url of the psslog before the given psslog
+     */
+    protected function previousUrl(Psslog $psslog, Request $request) {
+        $previousEntry = $this->previousEntry($psslog, $request);
+        if ($previousEntry){
+            return route('psslog.item',[$previousEntry->psslog_id]);
+        }
+    }
+
+    protected function nextEntry(Psslog $psslog, Request $request) {
+        return Psslog::where('entry_timestamp','>=',$psslog->entry_timestamp)
+            ->where('psslog_id','>', $psslog->psslog_id)
+            ->orderBy('entry_timestamp','asc')
+            ->take(1)
+            ->first();
+    }
+
+    protected function nextUrl(Psslog $psslog, Request $request) {
+        $nextEntry = $this->nextEntry($psslog, $request);
+        if ($nextEntry){
+            return route('psslog.item',[$nextEntry->psslog_id]);
+        }
+    }
 
     /**
      * Show the next entry after the given psslog
      */
     public function next(Psslog $psslog, Request $request){
-        $next = Psslog::where('entry_timestamp','>=',$psslog->entry_timestamp)
-            ->where('psslog_id','>', $psslog->psslog_id)
-            ->orderBy('entry_timestamp','asc')
-            ->take(1)
-            ->first();
+        $next = $this->nextEntry($psslog, $request);
         if ($next) {
             return redirect()->route('psslog.item',[$next->psslog_id]);
         }
@@ -88,6 +115,7 @@ class PsslogController extends Controller
         return redirect()->route('psslog.index');
 
     }
+
 
     /**
      * Get a table of currently open accesses
@@ -104,7 +132,10 @@ class PsslogController extends Controller
      * Display a single psslog entry
      */
     public function item(Psslog $psslog, Request $request){
-        return view('psslog.item')->with('psslog', $psslog);
+        return view('psslog.item')
+            ->with('psslog', $psslog)
+            ->with('nextUrl', $this->nextUrl($psslog, $request))
+            ->with('previousUrl', $this->previousUrl($psslog, $request));
     }
 
 

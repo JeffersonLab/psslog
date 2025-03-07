@@ -1,10 +1,10 @@
 <div>
     <div class="mt-10 mb-10 border-2 p-4 ">
-        <div class=title>
-            <h1 class="text-red-600 font-bold text-lg text-center mb-5">
-                CONTROLLED ACCESS LOG
-            </h1>
-        </div>
+
+        <x-stamps.title>
+            {{$psslog->psslog_id}} - CONTROLLED ACCESS LOG
+        </x-stamps.title>
+
         @include('partials.stamp_user_and_date')
         <br/>
         <label class=hardleft>AREA ACCESSED</label>
@@ -17,9 +17,9 @@
             <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
             @if ($psslog->stamp()->data()->laser_bypass_mode)
                     {{$psslog->stamp()->data()->laser_bypass_mode ? 'Y' : 'N'}}
-            @else
+                @else
                     &nbsp;&nbsp;
-            @endif
+                @endif
             </span>
         @endif
         <br/>
@@ -43,7 +43,11 @@
         </span>
         <label>FULL SURVEY COMPLETED @:</label>
         <span class="font-bold inline-block pl-5 border-solid border-black border-b-2 w-[5rem]">
-            {{$psslog->stamp()->data()->survey_completed->format('H:i')}}
+            @if (isset($psslog->stamp()->data()->survey_completed))
+                {{$psslog->stamp()->data()->survey_completed->format('H:i')}}
+            @else
+                &nbsp;&nbsp;
+            @endif
         </span>
         <br/>
         <br/>

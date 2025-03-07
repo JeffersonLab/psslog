@@ -3,19 +3,27 @@
 @section('main')
     <div class="flex flex-wrap">
         <main class="p-4 pt-10 w-full sm:w-2/3 md:3/4">
-            @if ($psslog->entry_type == 'STAMP')
-                @if ($psslog->stampType() == 'CONTROLLED')
-                    @include('psslog.controlled_stamp')
-                @elseif ($psslog->stampType() == 'RESTRICTED')
-                    @include('psslog.restricted_stamp')
-                @elseif ($psslog->stampType() == 'SWEEP')
-                    @include('psslog.sweep_stamp')
+        <div id="psslog-with-links">
+            <div class="hidden" id="item-links" >
+                <a id="item-links-previous" href="{{$previousUrl}}">previous</a>
+                <a id="item-links-next" href="{{$nextUrl}}">next</a>
+            </div>
+            <div id="item-content">
+                @if ($psslog->entry_type == 'STAMP')
+                    @if ($psslog->stampType() == 'CONTROLLED')
+                        @include('psslog.controlled_stamp')
+                    @elseif ($psslog->stampType() == 'RESTRICTED')
+                        @include('psslog.restricted_stamp')
+                    @elseif ($psslog->stampType() == 'SWEEP')
+                        @include('psslog.sweep_stamp')
+                    @else
+                        @include('psslog.stamp')
+                    @endif
                 @else
-                    @include('psslog.stamp')
+                    @include('psslog.info')
                 @endif
-            @else
-                @include('psslog.info')
-            @endif
+            </div>
+        </div>
         </main>
 
         <!-- Sidebar -->
