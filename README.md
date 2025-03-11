@@ -7,9 +7,14 @@ This is a work in progress.  The current production version resides in CSUE at t
 
 ## TODO
  ~~- Attachments Display~~
- - Prev/Next pager
- - Autorefresh
+ ~~- Prev/Next pager~~
+ ~~- RestrictedStamp~~
+ - ~~SweepStamp~~
+ - ~~Autorefresh~~
  - Filters Form
+ - Datepicker Click refreshes page
+ ~~- Default to groupBy Shift~~
  - Text Search 
  - Add new SSO form
  - Functional Tests
+ - Need one line table Access display
