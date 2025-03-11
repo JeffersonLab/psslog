@@ -12,12 +12,12 @@ use Illuminate\Support\Collection;
 
 class PsslogController extends Controller
 {
-
     /**
      * An index page listing recent or requested psslog entries as well
      * as any open accesses that are underway.
      */
-    public function index(Request $request){
+    public function index(Request $request)
+    {
 
         $paginatedData = $this->indexQuery($request)->paginate(50);
 
@@ -30,44 +30,52 @@ class PsslogController extends Controller
     /**
      * Show a table of psslog entries
      */
-    public function list(Request $request){
+    public function list(Request $request)
+    {
         $paginatedData = $this->indexQuery($request)->paginate(50);
+
         return view('psslog.entries')
             ->with('entries', $this->getEntriesCollection($paginatedData, $request));
     }
 
-    protected function indexQuery(Request $request) {
+    protected function indexQuery(Request $request)
+    {
         $query = Psslog::query();
-        if (config('settings.display.entry_types')){
+        if (config('settings.display.entry_types')) {
             $query->whereIn('entry_type', config('settings.display.entry_types'));
         }
-        $query->orderBy('entry_timestamp','desc');
+        $query->orderBy('entry_timestamp', 'desc');
+
         return $query;
     }
 
-
-    protected function getEntriesCollection(Paginator $data, Request $request): Collection {
+    protected function getEntriesCollection(Paginator $data, Request $request): Collection
+    {
         $collection = new PsslogCollection($data->all());
-        if ( (config('settings.display.group_by') && strtoupper(config('settings.display.group_by')) != 'NONE')) {
+        if ((config('settings.display.group_by') && strtoupper(config('settings.display.group_by')) != 'NONE')) {
             $entries = $collection->groupBy(config('settings.display.group_by'));
-        }else{
+        } else {
             $entries = $collection;
         }
+
         return $entries;
     }
 
-    protected function getAccesses(Request $request) : Collection {
-        return Access::where('time_out',null)->orderBy('time_in','desc')->get();
+    protected function getAccesses(Request $request): Collection
+    {
+        return Access::where('time_out', null)->orderBy('time_in', 'desc')->get();
     }
 
     /**
      * Show the previous entry before the given psslog
      */
-    public function previous(Psslog $psslog, Request $request){
+    public function previous(Psslog $psslog, Request $request)
+    {
         $previous = $this->previousEntry($psslog, $request);
-        if ($previous){
-            return redirect()->route('psslog.item',[$previous->psslog_id]);
+        if ($previous) {
+            return redirect()->route('psslog.item', [$previous->psslog_id]);
         }
+
         // No prior entries so go to index
         return redirect()->route('psslog.index');
     }
@@ -75,10 +83,11 @@ class PsslogController extends Controller
     /**
      * Get the psslog before the given psslog
      */
-    protected function previousEntry(Psslog $psslog, Request $request) {
-        return Psslog::where('entry_timestamp','<=',$psslog->entry_timestamp)
-            ->where('psslog_id','<', $psslog->psslog_id)
-            ->orderBy('entry_timestamp','desc')
+    protected function previousEntry(Psslog $psslog, Request $request)
+    {
+        return Psslog::where('entry_timestamp', '<=', $psslog->entry_timestamp)
+            ->where('psslog_id', '<', $psslog->psslog_id)
+            ->orderBy('entry_timestamp', 'desc')
             ->take(1)
             ->first();
     }
@@ -86,47 +95,53 @@ class PsslogController extends Controller
     /**
      * Get the url of the psslog before the given psslog
      */
-    protected function previousUrl(Psslog $psslog, Request $request) {
+    protected function previousUrl(Psslog $psslog, Request $request)
+    {
         $previousEntry = $this->previousEntry($psslog, $request);
-        if ($previousEntry){
-            return route('psslog.item',[$previousEntry->psslog_id]);
+        if ($previousEntry) {
+            return route('psslog.item', [$previousEntry->psslog_id]);
         }
     }
 
-    protected function nextEntry(Psslog $psslog, Request $request) {
-        return Psslog::where('entry_timestamp','>=',$psslog->entry_timestamp)
-            ->where('psslog_id','>', $psslog->psslog_id)
-            ->orderBy('entry_timestamp','asc')
+    protected function nextEntry(Psslog $psslog, Request $request)
+    {
+        return Psslog::where('entry_timestamp', '>=', $psslog->entry_timestamp)
+            ->where('psslog_id', '>', $psslog->psslog_id)
+            ->orderBy('entry_timestamp', 'asc')
             ->take(1)
             ->first();
     }
 
-    protected function nextUrl(Psslog $psslog, Request $request) {
+    protected function nextUrl(Psslog $psslog, Request $request)
+    {
         $nextEntry = $this->nextEntry($psslog, $request);
-        if ($nextEntry){
-            return route('psslog.item',[$nextEntry->psslog_id]);
+        if ($nextEntry) {
+            return route('psslog.item', [$nextEntry->psslog_id]);
         }
     }
 
     /**
      * Show the next entry after the given psslog
      */
-    public function next(Psslog $psslog, Request $request){
+    public function next(Psslog $psslog, Request $request)
+    {
         $next = $this->nextEntry($psslog, $request);
         if ($next) {
-            return redirect()->route('psslog.item',[$next->psslog_id]);
+            return redirect()->route('psslog.item', [$next->psslog_id]);
         }
+
         // No more next entries so go to index
         return redirect()->route('psslog.index');
 
     }
 
-
     /**
      * Get a table of currently open accesses
      */
-    public function openAccesses(){
-        $accesses = Access::where('time_out',null)->orderBy('time_in','desc')->get();
+    public function openAccesses()
+    {
+        $accesses = Access::where('time_out', null)->orderBy('time_in', 'desc')->get();
+
         return view('psslog.accesses_table')
             ->with('accesses', $accesses)
             ->with('title', 'Open Accesses')
@@ -136,25 +151,22 @@ class PsslogController extends Controller
     /**
      * Display a single psslog entry
      */
-    public function item(Psslog $psslog, Request $request){
+    public function item(Psslog $psslog, Request $request)
+    {
         return view('psslog.item')
             ->with('psslog', $psslog)
             ->with('nextUrl', $this->nextUrl($psslog, $request))
             ->with('previousUrl', $this->previousUrl($psslog, $request));
     }
 
-
     /**
      * Print a psslog entry attachment.
-     *
      */
-    public function attachment(Psslog $psslog, Attachment $attachment, Request $request){
-        header("Content-disposition: filename=".$attachment->filename_orig);
-        header("Content-type: ".$attachment->mime_type);
-        header("Content-length: ".$attachment->data_size);
-        print($attachment->data);
+    public function attachment(Psslog $psslog, Attachment $attachment, Request $request)
+    {
+        header('Content-disposition: filename='.$attachment->filename_orig);
+        header('Content-type: '.$attachment->mime_type);
+        header('Content-length: '.$attachment->data_size);
+        echo $attachment->data;
     }
-
-
 }
-

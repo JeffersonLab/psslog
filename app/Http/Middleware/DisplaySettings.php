@@ -17,11 +17,11 @@ class DisplaySettings
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->has('groupBy')){
+        if ($request->has('groupBy')) {
             Config::set('settings.display.group_by', $request->get('groupBy'));
         }
 
-        if ($request->has('entryTypes')){
+        if ($request->has('entryTypes')) {
             Config::set('settings.display.entry_types', Arr::wrap($request->get('entryTypes')));
         }
 

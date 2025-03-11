@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class PsslogCollection extends Collection
@@ -88,7 +87,7 @@ class PsslogCollection extends Collection
     public function groupByShift($preserveKeys)
     {
         return parent::groupBy(function ($item, $key) {
-            return $this->shiftName($item->entry_timestamp) . ' ' . $this->dayName($item->entry_timestamp);
+            return $this->shiftName($item->entry_timestamp).' '.$this->dayName($item->entry_timestamp);
         }, $preserveKeys);
     }
 
@@ -100,12 +99,15 @@ class PsslogCollection extends Collection
         ksort($this->items);
     }
 
-    protected function shiftName(Carbon $date) {
+    protected function shiftName(Carbon $date)
+    {
         $shiftsTable = config('settings.ops_shifts');
+
         return $shiftsTable[$date->format('G')];
     }
 
-    protected function dayName(Carbon $date) {
+    protected function dayName(Carbon $date)
+    {
         return $date->format('l (d-m-Y)');
     }
 }

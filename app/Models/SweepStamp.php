@@ -8,7 +8,9 @@ class SweepStamp extends Model
 {
     // properties that differ from standard Laravel conventions
     protected $primaryKey = 'psslog_id';
+
     protected $table = 'sweep_stamps';
+
     public $timestamps = false;
 
     protected $casts = [
@@ -28,6 +30,4 @@ class SweepStamp extends Model
         'survey_completed' => 'date',
         'sweeper_tld_odh' => 'required | in:Y,N',
     ];
-
-
 }
