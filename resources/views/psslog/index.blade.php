@@ -11,8 +11,8 @@
             @endif
             </div>
             <!-- The listing of psslog entry titles -->
-
-            <div id="psslog-listing-container" hx-get="{{request()->fullUrl()}}" hx-trigger="every 1m" hx-swap="innerHTML">
+            {{request()->fullUrl()}}
+            <div id="psslog-listing-container" hx-get="{{route('psslog.list')}}" hx-trigger="every 1m" hx-swap="innerHTML">
                 @include('psslog.entries')
             </div>
             {!! $paginatorLinks !!}
@@ -26,6 +26,7 @@
         >
             <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
                 @include('layouts.sidebar_datepicker')
+                @include('layouts.sidebar_filters')
                 @include('layouts.sidebar_links')
             </div>
 

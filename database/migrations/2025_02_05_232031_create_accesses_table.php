@@ -9,11 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('accesses', function (Blueprint $table) {
             $table->bigIncrements('psslog_id'); // Foreign key Primary Key
-            $table->unsignedBigInteger('owning_stamp_id'); //Foreign key
+            $table->unsignedBigInteger('owning_stamp_id'); // Foreign key
             $table->string('full_name', 100)->nullable();
             $table->timestamp('time_in')->nullable();
             $table->timestamp('time_out')->nullable();

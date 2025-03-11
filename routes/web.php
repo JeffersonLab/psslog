@@ -3,26 +3,25 @@
 use App\Http\Controllers\PsslogController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/entries',[PsslogController::class,'index'])
+Route::get('/entries', [PsslogController::class, 'index'])
     ->name('psslog.index');
 
-Route::get('/entries/list',[PsslogController::class,'list'])
+Route::get('/entries/list', [PsslogController::class, 'list'])
     ->name('psslog.list');
 
-Route::get('/entries/{psslog}',[PsslogController::class,'item'])
+Route::get('/entries/{psslog}', [PsslogController::class, 'item'])
     ->name('psslog.item');
 
-Route::get('/entries/{psslog}/previous',[PsslogController::class,'previous'])
+Route::get('/entries/{psslog}/previous', [PsslogController::class, 'previous'])
     ->name('psslog.previous');
 
-Route::get('/entries/{psslog}/next',[PsslogController::class,'next'])
+Route::get('/entries/{psslog}/next', [PsslogController::class, 'next'])
     ->name('psslog.next');
 
-Route::get('/entries/{psslog}/attachments/{attachment}',[PsslogController::class,'attachment'])
+Route::get('/entries/{psslog}/attachments/{attachment}', [PsslogController::class, 'attachment'])
     ->name('psslog.attachment');
 
-Route::get('/accesses/open',[PsslogController::class,'openAccesses'])
+Route::get('/accesses/open', [PsslogController::class, 'openAccesses'])
     ->name('accesses.open');
 
-Route::redirect('/','/entries');
-
+Route::redirect('/', '/entries');
