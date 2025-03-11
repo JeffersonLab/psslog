@@ -14,6 +14,21 @@ return [
         'OWL'
     ],
     /**
+     *  Options for display settings
+     */
+    'options' => [
+      'entry_types' => ['ACCESS','AUTO','INFO','STAMP']
+    ],
+    /**
+     * Default Display settings
+     */
+    'display' => [
+      'group_by' => 'Shift',
+      'entry_types' => [],
+      'calendar_date' => '',
+      ''
+    ],
+    /**
      * Data for the sidebar Docs section
      */
     'sidebar_docs' => [
