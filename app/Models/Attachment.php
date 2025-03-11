@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Attachment extends Model
@@ -12,7 +13,7 @@ class Attachment extends Model
 
     public $timestamps = false;
 
-    public function psslog()
+    public function psslog(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Psslog::class, 'psslog_id', 'psslog_id');
     }

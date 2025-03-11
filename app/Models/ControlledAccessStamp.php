@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 class ControlledAccessStamp extends Model
@@ -21,7 +22,7 @@ class ControlledAccessStamp extends Model
         ];
     }
 
-    public function accesses()
+    public function accesses(): HasMany
     {
         return $this->hasMany(Access::class, 'owning_stamp_id', 'psslog_id')
             ->orderBy('time_in', 'desc');

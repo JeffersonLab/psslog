@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -45,7 +46,7 @@ class Access extends Model
     /**
      * The SSO who signed the user in
      */
-    public function entrySso()
+    public function entrySso(): HasOne
     {
         return $this->hasOne(\App\Models\User::class, 'staff_id', 'sso_in');
     }
@@ -53,7 +54,7 @@ class Access extends Model
     /**
      * The SSO who signed the user out
      */
-    public function exitSso()
+    public function exitSso(): HasOne
     {
         return $this->hasOne(\App\Models\User::class, 'staff_id', 'sso_out');
     }
