@@ -14,6 +14,6 @@ class Attachment extends Model
 
     public function psslog()
     {
-        return $this->belongsTo('App\Models\Psslog', 'psslog_id', 'psslog_id');
+        return $this->belongsTo(\App\Models\Psslog::class, 'psslog_id', 'psslog_id');
     }
 }

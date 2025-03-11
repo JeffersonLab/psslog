@@ -44,7 +44,7 @@ class Access extends Model
      */
     public function entrySso()
     {
-        return $this->hasOne('App\Models\User', 'staff_id', 'sso_in');
+        return $this->hasOne(\App\Models\User::class, 'staff_id', 'sso_in');
     }
 
     /**
@@ -52,6 +52,6 @@ class Access extends Model
      */
     public function exitSso()
     {
-        return $this->hasOne('App\Models\User', 'staff_id', 'sso_out');
+        return $this->hasOne(\App\Models\User::class, 'staff_id', 'sso_out');
     }
 }
