@@ -3,22 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ControlledAccessStamp extends Model
 {
     // properties that differ from standard Laravel conventions
     protected $primaryKey = 'psslog_id';
+
     protected $table = 'controlled_access_stamps';
+
     public $timestamps = false;
 
-    protected $casts = [
-        'start_timestamp' => 'datetime',
-        'survey_completed' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'start_timestamp' => 'datetime',
+            'survey_completed' => 'datetime',
+        ];
+    }
 
-    public function accesses(){
+    public function accesses(): HasMany
+    {
         return $this->hasMany(Access::class, 'owning_stamp_id', 'psslog_id')
             ->orderBy('time_in', 'desc');
     }
-
 }

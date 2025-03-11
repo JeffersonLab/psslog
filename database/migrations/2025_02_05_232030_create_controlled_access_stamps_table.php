@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('controlled_access_stamps', function (Blueprint $table) {
             $table->unsignedBigInteger('psslog_id'); // Foreign key

@@ -1,32 +1,33 @@
 <?php
+
 return [
     /**
-    * A map of which hours belong to which shift
-    */
+     * A map of which hours belong to which shift
+     */
     'ops_shifts' => [
         // 0 -7
-        'OWL','OWL','OWL','OWL','OWL','OWL','OWL',
+        'OWL', 'OWL', 'OWL', 'OWL', 'OWL', 'OWL', 'OWL',
         // 8 - 15
-        'DAY','DAY','DAY','DAY','DAY','DAY','DAY','DAY',
+        'DAY', 'DAY', 'DAY', 'DAY', 'DAY', 'DAY', 'DAY', 'DAY',
         // 16 - 22
-        'SWING','SWING','SWING','SWING','SWING','SWING','SWING','SWING',
+        'SWING', 'SWING', 'SWING', 'SWING', 'SWING', 'SWING', 'SWING', 'SWING',
         // 23
-        'OWL'
+        'OWL',
     ],
     /**
      *  Options for display settings
      */
     'options' => [
-      'entry_types' => ['ACCESS','AUTO','INFO','STAMP']
+        'entry_types' => ['ACCESS', 'AUTO', 'INFO', 'STAMP'],
     ],
     /**
      * Default Display settings
      */
     'display' => [
-      'group_by' => 'Shift',
-      'entry_types' => [],
-      'calendar_date' => '',
-      ''
+        'group_by' => 'Shift',
+        'entry_types' => [],
+        'calendar_date' => '',
+        '',
     ],
     /**
      * Data for the sidebar Docs section

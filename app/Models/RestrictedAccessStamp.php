@@ -8,14 +8,10 @@ class RestrictedAccessStamp extends Model
 {
     // properties that differ from standard Laravel conventions
     protected $primaryKey = 'psslog_id';
-    protected $table = 'restricted_access_stamps';
-    public $timestamps = false;
 
-    protected $casts = [
-        'announce15' => 'datetime',
-        'announce05' => 'datetime',
-        'survey_completed' => 'datetime',
-    ];
+    protected $table = 'restricted_access_stamps';
+
+    public $timestamps = false;
 
     // Default validation rules
     public static $rules = [
@@ -24,4 +20,13 @@ class RestrictedAccessStamp extends Model
         'announce05' => 'date',
         'survey_completed' => 'date',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'announce15' => 'datetime',
+            'announce05' => 'datetime',
+            'survey_completed' => 'datetime',
+        ];
+    }
 }

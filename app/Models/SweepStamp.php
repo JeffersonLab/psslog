@@ -8,15 +8,10 @@ class SweepStamp extends Model
 {
     // properties that differ from standard Laravel conventions
     protected $primaryKey = 'psslog_id';
-    protected $table = 'sweep_stamps';
-    public $timestamps = false;
 
-    protected $casts = [
-        'announce15' => 'datetime',
-        'announce05' => 'datetime',
-        'sweep_completed' => 'datetime',
-        'survey_completed' => 'datetime',
-    ];
+    protected $table = 'sweep_stamps';
+
+    public $timestamps = false;
 
     // Default validation rules
     public static $rules = [
@@ -29,5 +24,13 @@ class SweepStamp extends Model
         'sweeper_tld_odh' => 'required | in:Y,N',
     ];
 
-
+    protected function casts(): array
+    {
+        return [
+            'announce15' => 'datetime',
+            'announce05' => 'datetime',
+            'sweep_completed' => 'datetime',
+            'survey_completed' => 'datetime',
+        ];
+    }
 }
