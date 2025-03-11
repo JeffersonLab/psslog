@@ -18,10 +18,6 @@ class Psslog extends Model
 
     protected $stamp = null;
 
-    protected $casts = [
-        'entry_timestamp' => 'datetime',
-    ];
-
     // Attributes which may not be mass-assigned
     public $guarded = ['psslog_id'];
 
@@ -36,6 +32,13 @@ class Psslog extends Model
         'comments' => 'max:4000',
         'Area' => 'required',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'entry_timestamp' => 'datetime',
+        ];
+    }
 
     public function getCreatedAtColumn()
     {

@@ -13,12 +13,6 @@ class RestrictedAccessStamp extends Model
 
     public $timestamps = false;
 
-    protected $casts = [
-        'announce15' => 'datetime',
-        'announce05' => 'datetime',
-        'survey_completed' => 'datetime',
-    ];
-
     // Default validation rules
     public static $rules = [
         'survey_required' => 'nullable | in:F,P',
@@ -26,4 +20,13 @@ class RestrictedAccessStamp extends Model
         'announce05' => 'date',
         'survey_completed' => 'date',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'announce15' => 'datetime',
+            'announce05' => 'datetime',
+            'survey_completed' => 'datetime',
+        ];
+    }
 }

@@ -13,10 +13,13 @@ class ControlledAccessStamp extends Model
 
     public $timestamps = false;
 
-    protected $casts = [
-        'start_timestamp' => 'datetime',
-        'survey_completed' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'start_timestamp' => 'datetime',
+            'survey_completed' => 'datetime',
+        ];
+    }
 
     public function accesses()
     {

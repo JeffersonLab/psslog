@@ -12,11 +12,6 @@ class Access extends Model
 
     protected $table = 'accesses';
 
-    protected $casts = [
-        'time_in' => 'datetime',
-        'time_out' => 'datetime',
-    ];
-
     protected $with = ['psslog'];
 
     public $timestamps = false;
@@ -28,6 +23,14 @@ class Access extends Model
     private $map = ['I' => 'INJ', 'N' => 'NL', 'S' => 'SL', 'B' => 'BSY',
         'A' => 'HALLA', 'B' => 'HALLB', 'C' => 'HALLC',
         'D' => 'HALLD', 'T' => 'HDTAGGER', 'F' => 'LERF'];
+
+    protected function casts(): array
+    {
+        return [
+            'time_in' => 'datetime',
+            'time_out' => 'datetime',
+        ];
+    }
 
     /**
      * The informational psslog entry that owns the Access
