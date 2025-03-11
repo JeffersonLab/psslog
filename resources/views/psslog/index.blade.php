@@ -2,7 +2,7 @@
 
 @section('main')
     <div class="flex flex-wrap w-100">
-
+{{--        {{dd($filters["date"])}}--}}
         <main class="p-4 mt-14 w-full sm:w-2/3 md:w-3/4">
             <!-- The table of open accesses -->
             <div id="open-accesses-container" hx-get="{{route('accesses.open')}}" hx-trigger="every 1m" hx-swap="innerHTML">

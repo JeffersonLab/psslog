@@ -24,10 +24,8 @@ return [
      * Default Display settings
      */
     'display' => [
-        'group_by' => 'Shift',
-        'entry_types' => [],
-        'calendar_date' => '',
-        '',
+        'grouping' => 'Shift',
+        'types' => ['ACCESS', 'AUTO', 'INFO', 'STAMP'],
     ],
     /**
      * Data for the sidebar Docs section

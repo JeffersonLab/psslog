@@ -108,6 +108,6 @@ class PsslogCollection extends Collection
 
     protected function dayName(Carbon $date)
     {
-        return $date->format('l (d-m-Y)');
+        return $date->format('l (d-M-Y)');
     }
 }

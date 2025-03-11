@@ -8,6 +8,7 @@ use App\Models\Psslog;
 use App\Models\PsslogCollection;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class PsslogController extends Controller
@@ -22,6 +23,7 @@ class PsslogController extends Controller
         $paginatedData = $this->indexQuery($request)->paginate(50);
 
         return view('psslog.index')
+            ->with('filters', $request->session()->get('filters'))
             ->with('entries', $this->getEntriesCollection($paginatedData, $request))
             ->with('accesses', $this->getAccesses($request))
             ->with('paginatorLinks', $paginatedData->withQueryString()->onEachSide(3)->links());
@@ -40,10 +42,13 @@ class PsslogController extends Controller
 
     protected function indexQuery(Request $request)
     {
+        $session = $request->session();
+        $date = Carbon::createFromFormat('Y-m-d', $session->get('filters.date'));
+        $date = $date->addDay()->hour(0)->minute(0)->second(0);  // We want up to 00:00 of tomorrow
+
         $query = Psslog::query();
-        if (config('settings.display.entry_types')) {
-            $query->whereIn('entry_type', config('settings.display.entry_types'));
-        }
+        $query->whereIn('entry_type', $session->get('filters.types'));
+        $query->where('entry_timestamp','<', $date );
         $query->orderBy('entry_timestamp', 'desc');
 
         return $query;
@@ -52,8 +57,8 @@ class PsslogController extends Controller
     protected function getEntriesCollection(Paginator $data, Request $request): Collection
     {
         $collection = new PsslogCollection($data->all());
-        if ((config('settings.display.group_by') && strtoupper(config('settings.display.group_by')) != 'NONE')) {
-            $entries = $collection->groupBy(config('settings.display.group_by'));
+        if ((config('settings.display.grouping') && strtoupper(config('settings.display.grouping')) != 'NONE')) {
+            $entries = $collection->groupBy(config('settings.display.grouping'));
         } else {
             $entries = $collection;
         }
