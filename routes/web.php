@@ -4,19 +4,15 @@ use App\Http\Controllers\PsslogController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/entries', [PsslogController::class, 'index'])
-    ->name('psslog.index');
+    ->name('psslog.index')
+    ->middleware(\App\Http\Middleware\DisplaySettings::class);
 
 Route::get('/entries/list', [PsslogController::class, 'list'])
-    ->name('psslog.list');
+    ->name('psslog.list')
+    ->middleware(\App\Http\Middleware\DisplaySettings::class);
 
 Route::get('/entries/{psslog}', [PsslogController::class, 'item'])
     ->name('psslog.item');
-
-Route::get('/entries/{psslog}/previous', [PsslogController::class, 'previous'])
-    ->name('psslog.previous');
-
-Route::get('/entries/{psslog}/next', [PsslogController::class, 'next'])
-    ->name('psslog.next');
 
 Route::get('/entries/{psslog}/attachments/{attachment}', [PsslogController::class, 'attachment'])
     ->name('psslog.attachment');
