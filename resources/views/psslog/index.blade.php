@@ -11,8 +11,7 @@
             @endif
             </div>
             <!-- The listing of psslog entry titles -->
-            {{request()->fullUrl()}}
-            <div id="psslog-listing-container" hx-get="{{route('psslog.list')}}" hx-trigger="every 1m" hx-swap="innerHTML">
+            <div id="psslog-listing-container" hx-get="{{route('psslog.list',$filters)}}" hx-trigger="every 5m" hx-swap="innerHTML">
                 @include('psslog.entries')
             </div>
             {!! $paginatorLinks !!}
@@ -20,7 +19,7 @@
 
         <!-- Sidebar -->
         <aside
-            class="right-0 w-80 pt-14  bg-white dark:bg-gray-800 dark:border-gray-700"
+            class="right-0 w-86 pt-14  bg-white dark:bg-gray-800 dark:border-gray-700"
             aria-label="Sidenav"
             id="drawer-navigation"
         >
