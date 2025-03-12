@@ -14,12 +14,19 @@ return [
         // 23
         'OWL',
     ],
+
     /**
      *  Options for display settings
      */
     'options' => [
         'entry_types' => ['ACCESS', 'AUTO', 'INFO', 'STAMP'],
     ],
+
+    /**
+     *  The number of entries to show per page of results
+     */
+    'paginate' => 25,
+
     /**
      * Default Display settings
      */
@@ -27,6 +34,7 @@ return [
         'grouping' => 'Shift',
         'types' => ['ACCESS', 'AUTO', 'INFO', 'STAMP'],
     ],
+
     /**
      * Data for the sidebar Docs section
      */
@@ -36,6 +44,7 @@ return [
         'PSS State Change Procedure' => 'https://jeffersonlab.sharepoint.com/sites/OpsDocs/Docs/PSS_state_change_proc.pdf',
         'PSS Sweep Procedure' => 'https://jeffersonlab.sharepoint.com/sites/OpsDocs/Docs/PSS_sweep_procedure.pdf',
     ],
+
     /**
      * Data for the sidebar Links section
      */
