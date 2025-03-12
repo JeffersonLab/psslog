@@ -9,6 +9,9 @@
                 @include('psslog.accesses_table',['title' => 'Open Accesses', 'entries' => $accesses, 'mode' => 'brief'])
             @endif
             </div>
+
+            @include('psslog.complex_filters')
+
             <!-- The listing of psslog entry titles -->
             <div id="psslog-listing-container" hx-get="{{route('psslog.list',$filters)}}" hx-trigger="every 5m" hx-swap="innerHTML">
                 @include('psslog.entries')
