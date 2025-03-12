@@ -40,15 +40,22 @@ class PsslogController extends Controller
             ->with('entries', $this->getEntriesCollection($paginatedData, $request));
     }
 
+    /**
+     * Obtain the base query for building the index list of psslog entries.
+     * The filters stored in the session are applied to the query.
+     */
     protected function indexQuery(Request $request)
     {
         $session = $request->session();
-        $date = Carbon::createFromFormat('Y-m-d', $session->get('filters.date'));
-        $date = $date->addDay()->hour(0)->minute(0)->second(0);  // We want up to 00:00 of tomorrow
+        $endDate = Carbon::createFromFormat('Y-m-d', $session->get('filters.date'));
+        $endDate = $endDate->addDay()->hour(0)->minute(0)->second(0);  // We want up to 00:00 of tomorrow
+        // We will limit database query to fetching the preceding 30 days
+        $beginDate = Carbon::create($endDate)->subtract('30 days')->hour(0)->minute(0)->second(0);
 
         $query = Psslog::query();
         $query->whereIn('entry_type', $session->get('filters.types'));
-        $query->where('entry_timestamp','<', $date );
+        $query->where('entry_timestamp','<', $endDate );
+        $query->where('entry_timestamp','>', $beginDate );
         $query->orderBy('entry_timestamp', 'desc');
 
         return $query;
