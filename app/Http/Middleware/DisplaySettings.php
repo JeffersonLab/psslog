@@ -45,12 +45,12 @@ class DisplaySettings
             $session->put('filters.end_date', date('Y-m-d'));
         }
 
-        if ($request->has('begin_date')) {
-            $session->put('filters.begin_date', $this->makeDate($request->get('begin_date')));
+        if ($request->has('start_date')) {
+            $session->put('filters.start_date', $this->makeDate($request->get('start_date')));
         }else{
             $endDate = Carbon::createFromFormat('Y-m-d', $session->get('filters.end_date'));
-            $beginDate = Carbon::create($endDate)->subtract('30 days');
-            $session->put('filters.begin_date', $beginDate->format('Y-m-d'));
+            $startDate = Carbon::create($endDate)->subtract('30 days');
+            $session->put('filters.start_date', $startDate->format('Y-m-d'));
         }
 
         return $next($request);

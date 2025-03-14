@@ -65,18 +65,15 @@ class PsslogController extends Controller {
         $endDate = Carbon::createFromFormat('Y-m-d', $session->get('filters.end_date'));
         $endDate = $endDate->endOfDay();  // We want up to 00:00 of tomorrow
 
-        // We will limit database query to fetching the preceding 30 days
-        $beginDate = Carbon::create($endDate);
-        $beginDate = $beginDate->subtract('30 days')
-            ->hour(0)
-            ->minute(0)
-            ->second(0);
+        $startDate = Carbon::createFromFormat('Y-m-d', $session->get('filters.start_date'));
+        $startDate = $startDate->endOfDay();  // We want up to 00:00 of tomorrow
+
 
         $query = Psslog::query();
 
         $query->whereIn('entry_type', $session->get('filters.types')); // STAMP, AUTO, etc.
         $query->where('entry_timestamp', '<', $endDate);
-        $query->where('entry_timestamp', '>=', $beginDate);
+        $query->where('entry_timestamp', '>=', $startDate);
 
         if ($session->has('filters.entry_maker')){
             $query->where('entry_maker', $session->get('filters.entry_maker'));

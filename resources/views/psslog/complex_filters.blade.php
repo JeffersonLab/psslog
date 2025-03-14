@@ -24,7 +24,7 @@
                         -------------------------------------------------------------}}
                         <x-bladewind::datepicker
                             type="range"
-                            :default_date_from="Illuminate\Support\Carbon::parse($filters['begin_date'])"
+                            :default_date_from="Illuminate\Support\Carbon::parse($filters['start_date'])"
                             :default_date_to="Illuminate\Support\Carbon::parse($filters['end_date'])"
                         />
                     </div>
