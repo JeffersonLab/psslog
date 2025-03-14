@@ -52,7 +52,7 @@
                             :data="$entryMakerOptions"/>
                     </div>
                     <div class="flex-col w-2/3 align-middle h-12">
-                        <x-bladewind::input label="Text Contains"/>
+                        <x-bladewind::input name=q label="Text Contains" :value="$filters['q']"/>
                     </div>
                 </div>
                 <div class="my-4 flex">

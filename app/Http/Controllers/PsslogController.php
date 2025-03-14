@@ -79,6 +79,16 @@ class PsslogController extends Controller {
             $query->where('entry_maker', $session->get('filters.entry_maker'));
         }
 
+        if ($session->has('filters.q')){
+            // third param of where clauses makes them case-insensitive
+            $query->where(function($subQuery) use ($session) {
+                $str = '%'.$session->get('filters.q').'%';
+                $subQuery->whereLike('title', $str,false)
+                    ->orWhereLike('comments', $str, false);
+            });
+        }
+
+
         $query->orderBy('entry_timestamp', 'desc');
 
         return $query;

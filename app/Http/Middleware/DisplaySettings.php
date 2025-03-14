@@ -39,6 +39,12 @@ class DisplaySettings
             $session->put('filters.entry_maker');  // NULL
         }
 
+        if ($request->has('q')) {
+            $session->put('filters.q', $request->get('q'));
+        }else{
+            $session->put('filters.q');  // NULL
+        }
+
         if ($request->has('end_date')) {
             $session->put('filters.end_date', $this->makeDate($request->get('end_date')));
         }else{
