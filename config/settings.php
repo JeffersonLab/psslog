@@ -25,7 +25,7 @@ return [
     /**
      *  The number of entries to show per page of results
      */
-    'paginate' => 25,
+    'paginate' => 50,
 
     /**
      * Default Display settings

@@ -16,6 +16,7 @@
             <div id="psslog-listing-container" hx-get="{{route('psslog.list',$filters)}}" hx-trigger="every 5m" hx-swap="innerHTML">
                 @include('psslog.entries')
             </div>
+{{--            {{dd($paginatorLinks)}}--}}
             {!! $paginatorLinks !!}
         </main>
 

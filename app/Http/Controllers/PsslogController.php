@@ -36,9 +36,7 @@ class PsslogController extends Controller {
             ->with('filters', $request->session()->get('filters'))
             ->with('entries', $this->getEntriesCollection($paginatedData, $request))
             ->with('accesses', $this->getOpenAccesses($request))
-            ->with('paginatorLinks', $paginatedData->withQueryString()
-                ->onEachSide(3)
-                ->links());
+            ->with('paginatorLinks', $paginatedData->withQueryString()->links('vendor.pagination.tailwind'));
     }
 
     /**
@@ -47,7 +45,8 @@ class PsslogController extends Controller {
      * reload.
      */
     public function list(Request $request): View {
-        $paginatedData = $this->indexQuery($request)->paginate(50);
+        $paginatedData = $this->indexQuery($request)
+            ->paginate(config('settings.paginate'));
 
         return view('psslog.entries')
             ->with('entries', $this->getEntriesCollection($paginatedData, $request));

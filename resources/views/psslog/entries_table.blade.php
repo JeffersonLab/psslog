@@ -13,10 +13,10 @@
             <th scope="col" class="px-1 py-1 w-1/12">
                 Time
             </th>
-            <th scope="col" class="px-1 py-1 w-1/12">
+            <th scope="col" class="px-1 py-1 w-[8em]">
                 Area
             </th>
-            <th scope="col" class="px-1 py-1 w-/12">
+            <th scope="col" class="px-1 py-1 w-1/12">
                 Type
             </th>
             <th scope="col" class="px-1 py-1 w-1/12">
