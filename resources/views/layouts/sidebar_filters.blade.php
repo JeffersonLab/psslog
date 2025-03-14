@@ -1,11 +1,11 @@
 <form id="filter-block" x-data method="get" action="{{route('psslog.index')}}" class="w-full">
-    <input x-ref="dateInput" name="date" type="hidden" class="invisible h-0 p-0 m-0" placeholder="YYYY-MM-DD"
+    <input x-ref="dateInput" name="end_date" type="hidden" class="invisible h-0 p-0 m-0" placeholder="YYYY-MM-DD"
            @change="$event.target.form.submit();" value=""/>
     <div class="flex items-center "
          x-init="flatpickr($refs.dateInput, {
                       dateFormat: 'Y-m-d',
                       inline: true,
-                      defaultDate: '{{$filters["date"]}}'
+                      defaultDate: '{{$filters["end_date"]}}'
          })"
     >
 

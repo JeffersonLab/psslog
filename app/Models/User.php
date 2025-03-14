@@ -57,4 +57,14 @@ class User extends Authenticatable
 
         return "{$f}_{$last}";
     }
+
+    public function lastFirst()
+    {
+        $first = isset($this->firstname) ?$this->firstname : '_';
+        $last = isset($this->lastname) ? $this->lastname : '';
+        if ($last){
+            return "{$last}, {$first}";
+        }
+        return $first;
+    }
 }

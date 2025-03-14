@@ -33,10 +33,24 @@ class DisplaySettings
             $session->put('filters.types', config('settings.display.types'));
         }
 
-        if ($request->has('date')) {
-            $session->put('filters.date', $this->makeDate($request->get('date')));
+        if ($request->has('entry_maker')) {
+            $session->put('filters.entry_maker', $request->get('entry_maker'));
         }else{
-            $session->put('filters.date', date('Y-m-d'));
+            $session->put('filters.entry_maker');  // NULL
+        }
+
+        if ($request->has('end_date')) {
+            $session->put('filters.end_date', $this->makeDate($request->get('end_date')));
+        }else{
+            $session->put('filters.end_date', date('Y-m-d'));
+        }
+
+        if ($request->has('begin_date')) {
+            $session->put('filters.begin_date', $this->makeDate($request->get('begin_date')));
+        }else{
+            $endDate = Carbon::createFromFormat('Y-m-d', $session->get('filters.end_date'));
+            $beginDate = Carbon::create($endDate)->subtract('30 days');
+            $session->put('filters.begin_date', $beginDate->format('Y-m-d'));
         }
 
         return $next($request);

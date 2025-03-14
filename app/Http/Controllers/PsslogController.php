@@ -6,6 +6,7 @@ use App\Models\Access;
 use App\Models\Attachment;
 use App\Models\Psslog;
 use App\Models\PsslogCollection;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class PsslogController extends Controller {
             ->with('filters', $request->session()->get('filters'))
             ->with('entries', $this->getEntriesCollection($paginatedData, $request))
             ->with('accesses', $this->getOpenAccesses($request))
+            ->with('entryMakerOptions', $this->entryMakerOptions())
             ->with('paginatorLinks', $paginatedData->withQueryString()->links('vendor.pagination.tailwind'));
     }
 
@@ -52,6 +54,7 @@ class PsslogController extends Controller {
             ->with('entries', $this->getEntriesCollection($paginatedData, $request));
     }
 
+
     /**
      * Obtain the base query for building the index list of psslog entries.
      * The filters stored in the session by the DisplaySettings middleware
@@ -59,15 +62,12 @@ class PsslogController extends Controller {
      */
     protected function indexQuery(Request $request): Builder {
         $session = $request->session();
-        $endDate = Carbon::createFromFormat('Y-m-d', $session->get('filters.date'));
-        $endDate = $endDate->addDay()
-            ->hour(0)
-            ->minute(0)
-            ->second(0);  // We want up to 00:00 of tomorrow
+        $endDate = Carbon::createFromFormat('Y-m-d', $session->get('filters.end_date'));
+        $endDate = $endDate->endOfDay();  // We want up to 00:00 of tomorrow
 
         // We will limit database query to fetching the preceding 30 days
-        $beginDate = Carbon::create($endDate)
-            ->subtract('30 days')
+        $beginDate = Carbon::create($endDate);
+        $beginDate = $beginDate->subtract('30 days')
             ->hour(0)
             ->minute(0)
             ->second(0);
@@ -77,6 +77,11 @@ class PsslogController extends Controller {
         $query->whereIn('entry_type', $session->get('filters.types')); // STAMP, AUTO, etc.
         $query->where('entry_timestamp', '<', $endDate);
         $query->where('entry_timestamp', '>=', $beginDate);
+
+        if ($session->has('filters.entry_maker')){
+            $query->where('entry_maker', $session->get('filters.entry_maker'));
+        }
+
         $query->orderBy('entry_timestamp', 'desc');
 
         return $query;
@@ -96,6 +101,12 @@ class PsslogController extends Controller {
         }
 
         return $entries;
+    }
+
+    protected function entryMakerOptions(): array {
+        return User::all()->sortBy('lastname')->map(function(User $user) {
+           return ['label' => $user->lastFirst(), 'value' => $user->getKey()];
+        })->toArray();
     }
 
     /**
